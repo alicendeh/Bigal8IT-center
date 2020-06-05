@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const AdminSchema = mongoose.Schema({
+const UserSchema = mongoose.Schema({
   fname: {
     type: String,
     required: [true, 'Prenom reqit'],
@@ -44,4 +44,4 @@ const AdminSchema = mongoose.Schema({
   },
 });
 
-module.exports = mongoose.model('AdminModel', AdminSchema);
+module.exports = mongoose.model('UserModel', UserSchema);

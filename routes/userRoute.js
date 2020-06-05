@@ -1,5 +1,5 @@
 const express = require('express');
-const Admin = require('../models/Admin');
+const User = require('../models/User');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const router = express.Router();
@@ -18,11 +18,11 @@ router.post('/', async (req, res) => {
   } = req.body;
 
   try {
-    let admin = await Admin.findOne({ tel });
-    if (admin) {
-      return res.status(400).json({ msg: 'This Admin Already Exists' });
+    let user = await User.findOne({ tel });
+    if (user) {
+      return res.status(400).json({ msg: 'This user Already Exists' });
     }
-    admin = new Admin({
+    user = new User({
       fname,
       lname,
       email,
@@ -34,9 +34,17 @@ router.post('/', async (req, res) => {
       choer,
     });
     const salt = await bcrypt.genSalt(12);
-    admin.password = await bcrypt.hash(password, salt);
-    await admin.save();
-    res.json({ admin });
+    user.password = await bcrypt.hash(password, salt);
+    await user.save();
+    const payload = {
+      user: {
+        user: user.id,
+      },
+    };
+    jwt.sign(payload, 'helohfff', { expiresIn: 36000 }, (err, token) => {
+      if (err) throw err;
+      res.json({ token });
+    });
   } catch (err) {
     res.status(500).json({ msg: 'Server Error' });
     console.log(err.message);
