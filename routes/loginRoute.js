@@ -31,7 +31,7 @@ router.post('/', async (req, res) => {
     };
     jwt.sign(payload, 'helohfff', { expiresIn: 36000 }, (err, token) => {
       if (err) throw err;
-      res.json({ token, msg: 'Hey There' });
+      res.json({ token });
     });
   } catch (err) {
     res.status(500).json({ msg: 'Server Error' });

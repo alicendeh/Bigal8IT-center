@@ -15,6 +15,7 @@ router.post('/', async (req, res) => {
     role,
     pulpitre,
     choer,
+    post,
   } = req.body;
 
   try {
@@ -32,6 +33,7 @@ router.post('/', async (req, res) => {
       role,
       pulpitre,
       choer,
+      post,
     });
     const salt = await bcrypt.genSalt(12);
     user.password = await bcrypt.hash(password, salt);
@@ -51,4 +53,17 @@ router.post('/', async (req, res) => {
   }
 });
 
+router.put('/updatePost/:id', async (req, res) => {
+  let { post } = req.body;
+
+  const user = await User.findByIdAndUpdate(req.params.id, req.body, {
+    new: true,
+    runValidators: true,
+  });
+
+  if (!user) {
+    return res.status(400).json({ msg: 'no such user' });
+  }
+  res.json({ user });
+});
 module.exports = router;

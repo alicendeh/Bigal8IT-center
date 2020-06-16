@@ -42,6 +42,11 @@ const UserSchema = mongoose.Schema({
     required: [true, 'pulpitre required'],
     enum: ['a', 'b', 'c'],
   },
+  post: {
+    type: String,
+    enum: ['user', 'admin'],
+    default: 'user',
+  },
 });
 
 module.exports = mongoose.model('UserModel', UserSchema);
