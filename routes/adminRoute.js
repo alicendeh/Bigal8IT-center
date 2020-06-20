@@ -8,7 +8,7 @@ const auth = require('../middleware/auth');
 router.post('/', auth, async (req, res) => {
   let check = await User.findById(req.user.id);
   if (check.post === 'admin') {
-    let { author, mass, liturgy, lang, type, title, admin } = req.body;
+    let { author, mass, liturgy, lang, type, title, admin, lyrics } = req.body;
     try {
       let admin = new Song({
         author,
@@ -90,7 +90,61 @@ router.get('/adminRole/user', auth, async (req, res) => {
   }
 
   if (telco.post === 'user') {
-    res.json({ msg: 'Access denied,you are not an admin' });
+    return res.json({ msg: 'Access denied,you are not an admin' });
+  }
+});
+
+// admin info update
+router.put('/updateInfo/:id', auth, async (req, res) => {
+  let admin = await User.findById(req.user.id);
+  try {
+    if (admin.post === 'admin') {
+      let updateProfile = await User.findByIdAndUpdate(
+        req.params.id,
+        req.body,
+        {
+          runValidators: true,
+          new: true,
+        }
+      );
+      if (!updateProfile) {
+        return res.status(400).json({ msg: 'no such user' });
+      }
+      res.json({ updateProfile });
+    }
+    if (admin.post === 'user') {
+      return res
+        .status(500)
+        .json({ msg: 'Access denied,you are not an admin' });
+    }
+  } catch (err) {
+    res.status(500).json({ msg: 'Server Error' });
+    console.log(err.message);
+  }
+});
+
+// edit songs:admin
+router.put('/updateSong/:id', auth, async (req, res) => {
+  let admin = await User.findById(req.user.id);
+  try {
+    if (admin.post === 'admin') {
+      let updateSong = await Song.findByIdAndUpdate(req.params.id, req.body, {
+        runValidators: true,
+        new: true,
+      });
+      if (!updateSong) {
+        return res.status(400).json({ msg: 'no such user' });
+      }
+      res.json({ updateSong });
+    }
+    if (admin.post === 'user') {
+      return res
+        .status(500)
+        .json({ msg: 'Access denied,you are not an admin' });
+    }
+  } catch (err) {
+    res.status(500).json({ msg: 'Server Error' });
+    console.log(err.message);
   }
 });
 module.exports = router;
