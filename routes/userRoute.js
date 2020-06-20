@@ -77,9 +77,5 @@ router.put('/updatePost/:id', async (req, res) => {
   }
   res.json({ user });
 });
-// get all users from database
-router.get('/allusers', async (req, res) => {
-  let user = await User.find();
-  res.status(200).json({ user });
-});
+
 module.exports = router;

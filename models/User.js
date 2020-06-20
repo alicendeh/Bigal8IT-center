@@ -44,8 +44,12 @@ const UserSchema = mongoose.Schema({
   },
   post: {
     type: String,
-    enum: ['user', 'admin'],
+    enum: ['user', 'admin', 'super-admin'],
     default: 'user',
+  },
+  Date: {
+    type: Date,
+    default: Date.now,
   },
 });
 
