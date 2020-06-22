@@ -47,6 +47,11 @@ const UserSchema = mongoose.Schema({
     enum: ['user', 'admin', 'super-admin'],
     default: 'user',
   },
+  photo: {
+    type: String,
+    required: true,
+    default: 'no-photo.jpg',
+  },
   Date: {
     type: Date,
     default: Date.now,
