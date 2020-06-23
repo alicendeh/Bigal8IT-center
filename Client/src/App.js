@@ -1,13 +1,14 @@
 import React, { Fragment } from 'react';
-import Navbar from './component/Layouts/Navbar';
-import EmbeddedPage from './component/Layouts/Pages/EmbeddedPage';
+import 'materialize-css/dist/css/materialize.min.css';
+import M from 'materialize-css/dist/js/materialize.min.js';
+import './App.css';
+import UserState from './component/UserHook/UserState';
 
 const App = () => {
   return (
-    <Fragment>
-      <Navbar />
-      <EmbeddedPage />
-    </Fragment>
+    <UserState>
+      <Fragment></Fragment>
+    </UserState>
   );
 };
 
