@@ -10,9 +10,11 @@ const App = () => {
   //   M.AutoInit();
   // });
   return (
-    <Fragment>
-      <MainAuth />
-    </Fragment>
+    <UserState>
+      <Fragment>
+        <MainAuth />
+      </Fragment>
+    </UserState>
   );
 };
 

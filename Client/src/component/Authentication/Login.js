@@ -1,7 +1,15 @@
-import React, { useState } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import UserContext from '../UserHook/UserContext';
 
-const Signup = () => {
+const Signup = (props) => {
+  const userContext = useContext(UserContext);
+  const { login, isAuthenticated } = userContext;
+  useEffect(() => {
+    if (isAuthenticated) {
+      props.history.push('/');
+    }
+  }, [isAuthenticated, props.history]);
+
   const [user, setUser] = useState({
     tel: '',
     password: '',
@@ -13,7 +21,8 @@ const Signup = () => {
   };
   const onSubmit = (e) => {
     e.preventDefault();
-    console.log(user);
+    login({ tel, password });
+    setUser({ tel: '', password: '' });
   };
   return (
     <form onSubmit={onSubmit} className='sign-in'>

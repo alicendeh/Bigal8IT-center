@@ -1,7 +1,14 @@
-import React, { useState } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import UserContext from '../UserHook/UserContext';
 
-const Signup = () => {
+const Signup = (props) => {
+  const userContext = useContext(UserContext);
+  const { register, isAuthenticated } = userContext;
+  useEffect(() => {
+    if (isAuthenticated) {
+      props.history.push('/');
+    }
+  }, [isAuthenticated, props.history]);
   const [user, setUser] = useState({
     fname: '',
     lname: '',
@@ -32,7 +39,17 @@ const Signup = () => {
   };
   const onSubmit = (e) => {
     e.preventDefault();
-    console.log(user);
+    register({
+      fname,
+      lname,
+      email,
+      tel,
+      password,
+      town,
+      choer,
+      role,
+      pulpitre,
+    });
   };
   return (
     <form onSubmit={onSubmit} className='sign-up'>
@@ -99,20 +116,20 @@ const Signup = () => {
       </div>
 
       <select value={role} name='role' onChange={onChange}>
-        <option value='alto' selected>
+        <option value='Alto' selected>
           Alto
         </option>
-        <option value='soprano'>Soprano</option>
-        <option value='teno'>Teno</option>
-        <option value='base'>Base</option>
+        <option value='Soprano'>Soprano</option>
+        <option value='Teno'>Teno</option>
+        <option value='Base'>Base</option>
       </select>
       <select value={pulpitre} name='pulpitre' onChange={onChange}>
-        <option value='alice' selected>
+        <option value='Alice' selected>
           Alice
         </option>
-        <option value='victoire'>Victoire</option>
-        <option value='augustin'>Austin</option>
-        <option value='rodrigue'>Rodrigue</option>
+        <option value='Victoire'>Victoire</option>
+        <option value='Austin'>Austin</option>
+        <option value='Rodrigue'>Rodrigue</option>
       </select>
       <div className='input-text'></div>
       <input type='submit' value="S'INSCRIRE" />

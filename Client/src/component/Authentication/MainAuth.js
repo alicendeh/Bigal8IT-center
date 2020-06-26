@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import Signup from './Signup';
 import Login from './Login';
 import { Route, BrowserRouter as Router, Switch, Link } from 'react-router-dom';
+import Redirect from './Redirect';
 
 const MainAuth = () => {
   const [change, setChange] = useState({ toggle: 0 });
@@ -36,7 +37,6 @@ const MainAuth = () => {
             style={{
               backgroundColor: toggle === 0 ? 'white' : '#25eabb',
               border: 'none',
-
               cursor: 'pointer',
             }}
           >
@@ -45,8 +45,9 @@ const MainAuth = () => {
         </ul>
 
         <Switch>
-          <Signup component={Signup} path='/signup' exact />
-          <Login component={Login} path='/login' exact />
+          <Route component={Signup} path='/signup' exact />
+          <Route component={Login} path='/login' exact />
+          <Route component={Redirect} path='/' exact />
         </Switch>
       </div>
     </Router>

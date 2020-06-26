@@ -35,12 +35,12 @@ const UserSchema = mongoose.Schema({
   role: {
     type: String,
     required: [true, 'role required'],
-    enum: ['alto', 'soprano', 'base', 'teno'],
+    enum: ['Alto', 'Soprano', 'Base', 'Teno'],
   },
   pulpitre: {
     type: String,
     required: [true, 'pulpitre required'],
-    enum: ['a', 'b', 'c'],
+    enum: ['Alice', 'Victoire', 'Austin', 'Rodrigue'],
   },
   post: {
     type: String,
