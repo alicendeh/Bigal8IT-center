@@ -111,6 +111,8 @@ router.put('/folder/:id/folder', async (req, res) => {
     res.status(400).json({ msg: 'no such user' });
   }
   let file = req.files.file;
+  console.log(file);
+
   if (!file) {
     res.status(400).json({ msg: 'enter a folder' });
   }

@@ -1,3 +1,4 @@
+import React, { useReducer } from 'react';
 import UserContext from './UserContext';
 import UserReducer from './UserReducer';
 import { v4 as uuid } from 'uuid';
@@ -10,7 +11,7 @@ const UserState = (props) => {
     isAuthenticated: false,
     loading: false,
   };
-  const [state, dispatch] = useReducer(reducer, initialState);
+  const [state, dispatch] = useReducer(UserReducer, initialState);
   return (
     <UserContext.Provider
       value={{
